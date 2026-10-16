@@ -1,0 +1,10 @@
+tensorflow>=2.15
+numpy
+pandas
+matplotlib
+scikit-learn
+opencv-python-headless
+pillow
+python-docx
+python-pptx
+jupyter

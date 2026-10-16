@@ -1,0 +1,8 @@
+# dataset (download from Kaggle APTOS 2019 into DataBase/)
+DataBase/
+
+__pycache__/
+.ipynb_checkpoints/
+venv/
+.venv/
+~$*

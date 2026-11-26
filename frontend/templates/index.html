@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Explainable AI for Diabetic Retinopathy Screening{% endblock %}
+{% block description %}RETINOVA screens fundus images for diabetic retinopathy with explainable AI. See early, explain clearly, act timely.{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">● Clinical-grade retinal AI</span>
+      <h1 class="brand">RETINOVA</h1>
+      <h2 class="tag">Explainable AI for<br /><span>Diabetic Retinopathy Screening</span></h2>
+      <p class="motto">“See Early. Explain Clearly. Act Timely.”</p>
+      <div class="status">Server Status: <span class="pulse"></span> <b id="serverStatus">CHECKING…</b></div>
+      <div class="hero-cta">
+        <button class="btn" id="startBtn"><span>Start Screening</span><span class="arrow">→</span></button>
+        <a class="btn ghost" href="{{ '/' ~ user.role if user else '/login' }}"><span>Open a Portal</span><span class="arrow">→</span></a>
+      </div>
+      <div class="scroll-hint">Scroll to explore <i>↓</i></div>
+    </div>
+    <div class="hero-art">
+      <img src="/static/img/hero.jpg" alt="Retinal fundus imaging close-up" />
+      <div class="scan-line"></div>
+      <div class="chip">Grad-CAM overlay on every result</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div>
+  {% for _ in range(2) %}
+  <span>DR Grade 0 — No DR</span><span>Grade 1 — Mild</span><span>Grade 2 — Moderate</span><span>Grade 3 — Severe</span><span>Grade 4 — Proliferative</span><span>Explainable Heatmaps</span><span>HIPAA-aware workflow</span>
+  {% endfor %}
+</div></div>
+
+<!-- SCREENING (revealed on click) -->
+<section id="screening" class="hidden">
+  <div class="wrap">
+    <div class="sec-head">
+      <h3>Upload Fundus Image</h3>
+      <p>Drop a retinal fundus photograph below. RETINOVA validates the file locally before it is received by the screening server.</p>
+    </div>
+    <div class="panel">
+      <div class="dropzone" id="dropzone">
+        <div class="dropzone-icon">🩺</div>
+        <h4>Upload Fundus Image</h4>
+        <p>Drag &amp; drop, or choose a file from your device</p>
+        <button class="btn" id="chooseBtn"><span>Choose Image</span><span class="arrow">→</span></button>
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,image/jpeg,image/png" class="hidden" />
+        <p class="formats-label">Accepted formats</p>
+        <div class="formats"><span>JPG</span><span>JPEG</span><span>PNG</span></div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div id="stepPreview" class="hidden">
+        <div class="preview-grid">
+          <div class="preview-img"><img id="pvImg" alt="Selected fundus preview" /></div>
+          <div>
+            <h4 class="field-label">Image details</h4>
+            <ul class="meta">
+              <li><span>Filename</span><span id="mName"></span></li>
+              <li><span>File size</span><span id="mSize"></span></li>
+              <li><span>Image width</span><span id="mW"></span></li>
+              <li><span>Image height</span><span id="mH"></span></li>
+            </ul>
+            <label for="eyeSelect">Which eye?</label>
+            <select id="eyeSelect">
+              <option value="unspecified">Not sure</option>
+              <option value="right">Right eye</option>
+              <option value="left">Left eye</option>
+            </select>
+            <div class="actions"><button class="btn" id="uploadBtn"><span>Upload Image</span><span class="arrow">→</span></button></div>
+            <div id="progressWrap" class="hidden">
+              <div class="bar"><i id="bar"></i></div>
+              <p class="note" id="uploadStatus">Uploading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="stepDone" class="hidden result">
+        <div class="success"><span class="tick">✓</span> <span id="dTitle">Screening Complete</span></div>
+        <p class="note" id="dNote">Image successfully received by the RETINOVA server.</p>
+        <div class="preview-grid">
+          <div class="preview-img"><img id="dImg" alt="Grad-CAM explanation of the uploaded fundus image" /></div>
+          <div>
+            <span class="pill" id="dGrade"></span>
+            <ul class="meta spaced">
+              <li><span>AI grade</span><span id="dPrediction">—</span></li>
+              <li><span>Confidence</span><span id="dConfidence">—</span></li>
+              <li><span>Referable DR</span><span id="dReferable">—</span></li>
+              <li><span>Next step</span><span id="dAdvice">—</span></li>
+              <li><span>Image quality</span><span id="dQuality">—</span></li>
+              <li><span>Filename</span><span id="dName"></span></li>
+              <li><span>Dimensions</span><span id="dDim"></span></li>
+              <li><span>Received at</span><span id="dTime"></span></li>
+            </ul>
+            <div class="actions">
+              <button class="btn" id="againBtn"><span>Upload Another</span><span class="arrow">→</span></button>
+              <a class="btn ghost" href="/patient"><span>View in Patient Portal</span><span class="arrow">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><h3>A calm, three-step clinical pathway</h3><p>No jargon, no black boxes. Every prediction arrives with a visual reason a clinician can verify in seconds.</p></div>
+    <div class="grid-3">
+      <div class="card reveal"><div class="ico">①</div><h4>Capture</h4><p>Any standard fundus camera or smartphone adapter. JPG, JPEG and PNG accepted up to 4K.</p></div>
+      <div class="card reveal"><div class="ico">②</div><h4>Explain</h4><p>Grad-CAM heatmaps highlight microaneurysms, haemorrhages and exudates driving the grade.</p></div>
+      <div class="card reveal"><div class="ico">③</div><h4>Act</h4><p>Referral urgency is routed to the doctor portal with a printable, audit-ready summary.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid-2">
+    <div class="reveal"><div class="preview-img"><img src="/static/img/xai.jpg" alt="Explainable AI heatmap over a retina" loading="lazy" /></div></div>
+    <div class="reveal">
+      <div class="sec-head"><h3>Explainability is the diagnosis</h3><p>RETINOVA never asks you to trust a number. Each grade is paired with lesion-level evidence, a confidence interval and a plain-language rationale you can share with the patient.</p></div>
+      <div class="quote"><p>“Early detection of diabetic retinopathy can prevent up to 95% of severe vision loss.”</p><small>World Health Organization — Vision Care</small></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b><span data-count="85.0" data-dec="1" data-suffix="%">0</span></b><span>Test accuracy (5 grades)</span></div>
+      <div class="stat"><b><span data-count="0.908" data-dec="3">0</span></b><span>Quadratic kappa</span></div>
+      <div class="stat"><b><span data-count="98.5" data-dec="1" data-suffix="%">0</span></b><span>Referable DR sensitivity</span></div>
+      <div class="stat"><b><span data-count="3662">0</span></b><span>APTOS 2019 images</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <div class="sec-head"><h3>Built for the clinic, not the lab</h3><p>Screening camps, primary care and tele-ophthalmology teams use RETINOVA to triage the patients who need a specialist today from those who can safely wait.</p></div>
+      <div class="quote"><p>“Clarity is kindness. A patient who understands their scan comes back for the next one.”</p><small>Dr. A. Nair — Retina Specialist</small></div>
+    </div>
+    <div class="reveal"><div class="preview-img"><img src="/static/img/clinic.jpg" alt="Ophthalmologist reviewing retinal scans" loading="lazy" /></div></div>
+  </div>
+</section>
+
+<!-- PORTALS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><h3>Four connected portals</h3><p>One account, the right workspace. Sign in and RETINOVA takes you where you belong.</p></div>
+    <div class="portal-grid">
+      <a class="portal reveal" href="/login"><b>Login / Signup</b><p>Create an account and choose your role.</p><span class="go">Enter <i>→</i></span></a>
+      <a class="portal reveal" href="/patient"><b>Patient Portal</b><p>Your scans, grades and next screening date in plain language.</p><span class="go">Enter <i>→</i></span></a>
+      <a class="portal reveal" href="/doctor"><b>Doctor Portal</b><p>Review queue, heatmaps and referral decisions.</p><span class="go">Enter <i>→</i></span></a>
+      <a class="portal reveal" href="/admin"><b>Admin Portal</b><p>Users, usage, model performance and system health.</p><span class="go">Enter <i>→</i></span></a>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}<script src="/static/js/home.js"></script>{% endblock %}

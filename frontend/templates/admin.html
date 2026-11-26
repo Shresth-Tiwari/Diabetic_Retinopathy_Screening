@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Admin Portal{% endblock %}
+{% block description %}RETINOVA users, screening usage, model performance and system health.{% endblock %}
+{% block footer_label %}Admin Portal{% endblock %}
+
+{% block content %}
+<div class="portal-head"><div class="wrap">
+  <span class="eyebrow">Admin Portal</span>
+  <h1>System overview · {{ user.name }}</h1>
+  <p id="adminSummary">Loading system status…</p>
+</div></div>
+
+<section>
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b><span id="statUsers">0</span></b><span id="statUsersDetail">Registered users</span></div>
+      <div class="stat"><b><span id="statScans">0</span></b><span>Screenings</span></div>
+      <div class="stat"><b><span id="statReferable">0</span></b><span>Flagged referable</span></div>
+      <div class="stat"><b><span id="statReviewed">0</span></b><span>Signed by doctors</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap grid-3">
+    <div class="card reveal"><div class="ico">🧠</div><h4>Inference service</h4><p><span class="pill ok">Model loaded</span></p><p id="serviceInference"></p></div>
+    <div class="card reveal"><div class="ico">🗄️</div><h4>Storage</h4><p><span class="pill ok">SQLite</span></p><p id="serviceStorage"></p></div>
+    <div class="card reveal"><div class="ico">🩺</div><h4>Review backlog</h4><p><span class="pill" id="backlogPill"></span></p><p id="serviceBacklog"></p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><h3>Users</h3><p>Accounts, roles and activity.</p></div>
+    <div class="reveal table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Activity</th><th>Last active</th></tr></thead>
+        <tbody id="userBody"><tr><td colspan="6">Loading…</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="grid-2 top reveal mt">
+      <div class="panel">
+        <h4 class="field-label">Model deployment</h4>
+        <ul class="meta" id="modelMeta"></ul>
+      </div>
+      <div class="panel">
+        <h4 class="field-label">Per-grade test performance</h4>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Grade</th><th>Precision</th><th>Recall</th><th>F1</th><th>Test images</th><th>Screened here</th></tr></thead>
+            <tbody id="gradeBody"></tbody>
+          </table>
+        </div>
+        <p class="note" id="metricsNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}<script src="/static/js/admin.js"></script>{% endblock %}

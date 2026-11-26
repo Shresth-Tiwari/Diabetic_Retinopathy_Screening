@@ -1,10 +1,8 @@
-tensorflow>=2.15
+fastapi
+uvicorn[standard]
+python-multipart
+jinja2
+Pillow
 numpy
-pandas
-matplotlib
-scikit-learn
-opencv-python-headless
-pillow
-python-docx
-python-pptx
-jupyter
+torch
+torchvision

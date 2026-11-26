@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{% block title %}{% endblock %} — RETINOVA</title>
+<meta name="description" content="{% block description %}{% endblock %}" />
+<link rel="stylesheet" href="/static/css/base.css" />
+<link rel="stylesheet" href="/static/css/layout.css" />
+<link rel="stylesheet" href="/static/css/components.css" />
+<link rel="stylesheet" href="/static/css/pages.css" />
+</head>
+<body>
+<header class="nav"><div class="wrap nav-in">
+  <a class="logo" href="/"><span class="dot"></span>RETINOVA</a>
+  <nav class="nav-links">
+    <a href="/" {% if page == 'index' %}class="active"{% endif %}>Home</a>
+    <a href="/#screening" id="navScreen">Screening</a>
+    {% if user %}
+      <a href="/{{ user.role }}" {% if page == user.role %}class="active"{% endif %}>{{ user.role | capitalize }} portal</a>
+      <a href="#" id="logout" class="logout">Log out</a>
+    {% else %}
+      <a href="/login" {% if page == 'login' %}class="active"{% endif %}>Login / Signup</a>
+    {% endif %}
+  </nav>
+</div></header>
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+<footer class="wrap">
+  <span>© 2026 RETINOVA · {% block footer_label %}Explainable retinal screening · Research demonstration only.{% endblock %}</span>
+  <span>See Early. Explain Clearly. Act Timely.</span>
+</footer>
+{% endblock %}
+
+<script src="/static/js/common.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

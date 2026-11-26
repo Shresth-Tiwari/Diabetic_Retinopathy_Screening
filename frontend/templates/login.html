@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Login / Signup{% endblock %}
+{% block description %}Sign in to RETINOVA and open the patient, doctor or admin portal.{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-art">
+    <img src="/static/img/clinic.jpg" alt="Eye clinic" />
+    <div class="overlay">
+      <h3>Welcome back to calmer screening.</h3>
+      <p>“See Early. Explain Clearly. Act Timely.”</p>
+    </div>
+  </div>
+  <div class="auth-form">
+    <div class="tabs"><button class="on" data-mode="login">Login</button><button data-mode="signup">Signup</button></div>
+    <h1>Access your workspace</h1>
+    <p class="note">After signing in you are taken to the portal for your role.</p>
+    <form id="authForm">
+      <div id="signupOnly" class="hidden">
+        <label for="fullname">Full name</label>
+        <input id="fullname" type="text" placeholder="Dr. Aditi Rao" />
+        <label for="role">Role</label>
+        <select id="role">
+          <option value="patient">Patient</option>
+          <option value="doctor">Doctor</option>
+          <option value="admin">Administrator</option>
+        </select>
+      </div>
+      <label for="email">Email</label>
+      <input id="email" type="email" required placeholder="you@clinic.org" />
+      <label for="pw">Password</label>
+      <input id="pw" type="password" required placeholder="••••••••" />
+      <button class="btn" id="authSubmit" type="submit"><span>Sign In</span><span class="arrow">→</span></button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+{% block scripts %}<script src="/static/js/login.js"></script>{% endblock %}

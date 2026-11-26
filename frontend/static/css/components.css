@@ -1,0 +1,93 @@
+/* RETINOVA — components: buttons, cards, panels, stats, tables, pills, upload */
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:10px;border:none;cursor:pointer;font-family:var(--font);
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.78rem;padding:15px 30px;border-radius:999px;
+  background:linear-gradient(135deg,var(--terra),var(--amber));color:#fff;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-3px);box-shadow:0 24px 45px -20px rgba(164,78,45,.65)}
+.btn.ghost{background:transparent;color:var(--terra-dark);border:1.5px solid var(--terra);box-shadow:none}
+.btn.ghost:hover{background:rgba(196,98,60,.08)}
+.btn .arrow{transition:transform .35s}
+.btn:hover .arrow{transform:translateX(6px)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--terra-dark);background:var(--cream-2);border:1px solid var(--line);padding:7px 14px;border-radius:999px}
+
+/* ---------- cards and panels ---------- */
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px;transition:.3s;box-shadow:0 8px 22px -18px rgba(80,50,30,.5)}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.card .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:var(--cream-2);color:var(--terra-dark);font-size:1.2rem;margin-bottom:14px}
+.card h4{font-size:1.05rem;margin-bottom:6px}
+.card p{color:var(--ink-soft);font-size:.93rem}
+.card p + p{margin-top:8px}
+
+.panel{background:var(--white);border:1px solid var(--line);border-radius:26px;padding:34px;box-shadow:var(--shadow)}
+.panel-title{margin:14px 0 8px}
+
+/* ---------- stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;background:var(--white);border:1px solid var(--line);border-radius:24px;padding:28px}
+.stat b{display:block;font-size:1.9rem;color:var(--terra-dark)}
+.stat span{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.stat b span{font-size:inherit;letter-spacing:normal;text-transform:none;color:inherit}
+
+/* ---------- quote ---------- */
+.quote{background:linear-gradient(135deg,var(--cream-2),var(--white));border-left:5px solid var(--terra);border-radius:var(--radius);padding:28px 30px}
+.quote p{font-size:1.12rem;font-style:italic}
+.quote small{display:block;margin-top:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-size:.72rem}
+
+/* ---------- key/value list ---------- */
+.meta{list-style:none}
+.meta.spaced{margin-top:16px}
+.meta li{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line);font-size:.92rem}
+.meta li span:first-child{letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--ink-soft)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+th,td{padding:13px 16px;text-align:left;font-size:.9rem;border-bottom:1px solid var(--line)}
+th{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);background:var(--cream-2)}
+table.clickable tbody tr{cursor:pointer;transition:background .2s}
+table.clickable tbody tr:hover{background:var(--cream-2)}
+table.clickable tbody tr.selected{background:rgba(224,151,63,.14)}
+
+/* ---------- pills (urgency / status) ---------- */
+.pill{padding:4px 12px;border-radius:999px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+.pill.ok{background:rgba(95,127,106,.15);color:var(--sage)}
+.pill.warn{background:rgba(224,151,63,.2);color:#a5701f}
+.pill.risk{background:rgba(196,98,60,.16);color:var(--terra-dark)}
+
+/* ---------- grade probability bars ---------- */
+.probs{margin-top:16px;display:grid;gap:6px}
+.probs div{display:grid;grid-template-columns:110px 1fr 52px;align-items:center;gap:10px;font-size:.78rem;color:var(--ink-soft)}
+.probs i{display:block;height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.probs i b{display:block;height:100%;background:linear-gradient(90deg,var(--terra),var(--amber))}
+.probs span:last-child{text-align:right}
+
+/* ---------- upload ---------- */
+.dropzone{border:2px dashed var(--line);border-radius:20px;padding:44px;text-align:center;background:var(--cream);transition:.25s}
+.dropzone.drag{border-color:var(--terra);background:var(--cream-2)}
+.dropzone-icon{font-size:2.2rem}
+.dropzone h4{margin:10px 0 4px;letter-spacing:.14em;text-transform:uppercase}
+.dropzone p{color:var(--ink-soft)}
+.dropzone .btn{margin-top:18px}
+.dropzone .formats-label{margin-top:20px;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase}
+.formats{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.formats span{background:var(--cream-2);border:1px solid var(--line);border-radius:999px;padding:5px 14px;font-size:.75rem;letter-spacing:.12em}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start;margin-top:26px}
+.preview-img{border-radius:18px;overflow:hidden;border:5px solid var(--cream-2)}
+.bar{height:8px;border-radius:999px;background:var(--cream-2);overflow:hidden;margin-top:18px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--amber),var(--terra));transition:width .2s}
+.result{margin-top:26px}
+.success{display:flex;align-items:center;gap:12px;color:var(--sage);font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tick{width:34px;height:34px;border-radius:50%;background:var(--sage);color:#fff;display:grid;place-items:center;animation:pop .5s}
+@keyframes pop{from{transform:scale(.4);opacity:0}}
+
+/* ---------- login / signup tabs ---------- */
+.tabs{display:flex;background:var(--cream-2);border-radius:999px;padding:5px;margin-bottom:22px;width:max-content}
+.tabs button{border:none;background:transparent;padding:9px 22px;border-radius:999px;cursor:pointer;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.tabs button.on{background:var(--white);color:var(--terra-dark);box-shadow:0 6px 16px -12px #000}
+
+@media(max-width:900px){
+  .preview-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){.stats{grid-template-columns:1fr}}

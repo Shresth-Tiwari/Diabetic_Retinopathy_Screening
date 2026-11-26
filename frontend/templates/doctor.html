@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Doctor Portal{% endblock %}
+{% block description %}Review the AI screening queue, inspect explainability heatmaps and set referral urgency.{% endblock %}
+{% block footer_label %}Doctor Portal{% endblock %}
+
+{% block content %}
+<div class="portal-head"><div class="wrap">
+  <span class="eyebrow">Doctor Portal</span>
+  <h1>Review queue · {{ user.name }}</h1>
+  <p id="queueSummary">Loading the review queue…</p>
+</div></div>
+
+<section>
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b><span id="statAwaiting">0</span></b><span>Awaiting review</span></div>
+      <div class="stat"><b><span id="statUrgent">0</span></b><span>Urgent (grade 3–4)</span></div>
+      <div class="stat"><b><span id="statToday">0</span></b><span>Signed today</span></div>
+      <div class="stat"><b><span id="statAgreement">—</span></b><span>Doctor–AI agreement</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SELECTED CASE -->
+<section id="caseSection" class="hidden">
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <div class="preview-img"><img id="caseImage" alt="Fundus image under review" /></div>
+      <div class="actions">
+        <button class="btn ghost" id="showHeatmap"><span>Grad-CAM</span></button>
+        <button class="btn ghost" id="showOriginal"><span>Original</span></button>
+      </div>
+      <p class="note" id="caseCaption"></p>
+    </div>
+    <div class="reveal">
+      <div class="panel">
+        <span class="pill" id="caseGrade"></span>
+        <h3 class="panel-title">AI assessment</h3>
+        <ul class="meta">
+          <li><span>Patient</span><span id="casePatient"></span></li>
+          <li><span>Confidence</span><span id="caseConfidence"></span></li>
+          <li><span>P(referable DR)</span><span id="caseReferable"></span></li>
+          <li><span>Image quality</span><span id="caseQuality"></span></li>
+          <li><span>Suggested action</span><span id="caseAdvice"></span></li>
+        </ul>
+        <div id="caseProbabilities" class="probs"></div>
+
+        <form id="reviewForm" class="mt">
+          <label for="finalGrade">Your grade</label>
+          <select id="finalGrade">
+            <option value="0">Grade 0 · No DR</option>
+            <option value="1">Grade 1 · Mild</option>
+            <option value="2">Grade 2 · Moderate</option>
+            <option value="3">Grade 3 · Severe</option>
+            <option value="4">Grade 4 · Proliferative</option>
+          </select>
+          <label for="reviewComments">Comments for the patient record</label>
+          <textarea id="reviewComments" rows="3" maxlength="2000" placeholder="Optional"></textarea>
+          <div class="actions">
+            <button class="btn" id="reviewSubmit" type="submit"><span>Confirm &amp; Sign Off</span><span class="arrow">→</span></button>
+          </div>
+        </form>
+        <p class="note" id="reviewDone"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><h3>Pending cases</h3><p>Sorted by AI-assigned urgency. Select a case to review it.</p></div>
+    <div class="reveal table-wrap">
+      <table class="clickable">
+        <thead><tr><th>Case</th><th>Patient</th><th>Eye</th><th>AI grade</th><th>Confidence</th><th>P(referable)</th><th>Urgency</th><th>Uploaded</th></tr></thead>
+        <tbody id="pendingBody"><tr><td colspan="8">Loading…</td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="sec-head reveal mt-lg"><h3>Recently signed</h3><p>Your team's last ten reviews.</p></div>
+    <div class="reveal table-wrap">
+      <table class="clickable">
+        <thead><tr><th>Case</th><th>Patient</th><th>AI grade</th><th>Final grade</th><th>Decision</th><th>Reviewed by</th><th>Signed</th></tr></thead>
+        <tbody id="recentBody"><tr><td colspan="7">No reviews yet.</td></tr></tbody>
+      </table>
+    </div>
+    <div class="quote reveal mt"><p>“The model proposes. The clinician decides.”</p><small>RETINOVA Clinical Governance</small></div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}<script src="/static/js/doctor.js"></script>{% endblock %}

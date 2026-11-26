@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Patient Portal{% endblock %}
+{% block description %}View your retinal screening results, grades and next screening date in plain language.{% endblock %}
+{% block footer_label %}Patient Portal{% endblock %}
+
+{% block content %}
+<div class="portal-head"><div class="wrap">
+  <span class="eyebrow">Patient Portal</span>
+  <h1>Hello, {{ user.name }}</h1>
+  <p>Your latest screening result is shown below in plain language.</p>
+</div></div>
+
+<!-- LATEST RESULT -->
+<section>
+  <div class="wrap grid-2">
+    <div class="reveal">
+      <div class="panel">
+        <span class="pill" id="patientGrade">No screening yet</span>
+        <h3 class="panel-title">Latest result</h3>
+        <p id="patientSummary" class="muted">Your AI-assisted screening result will appear here after you upload a fundus image.</p>
+        <ul class="meta spaced">
+          <li><span>AI prediction</span><span id="patientPrediction">—</span></li>
+          <li><span>Confidence</span><span id="patientConfidence">—</span></li>
+          <li><span>Referable DR</span><span id="patientReferable">—</span></li>
+          <li><span>Referable probability</span><span id="patientReferableProbability">—</span></li>
+          <li><span>Image quality</span><span id="patientQuality">—</span></li>
+          <li><span>Doctor review</span><span id="patientReview">—</span></li>
+          <li><span>Next step</span><span id="patientAdvice">—</span></li>
+          <li><span>Next screening</span><span id="patientNext">—</span></li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="/#screening"><span>New Screening</span><span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- XAI / EXPLANATION -->
+    <div class="reveal">
+      <div class="preview-img"><img id="patientExplanation" src="/static/img/xai.jpg" alt="Example retina with highlighted regions" loading="lazy" /></div>
+      <p class="note" id="patientExplanationNote">Example heatmap. After your first screening, the bright regions show the areas of your retina that most influenced the AI grade.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENING HISTORY -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal"><h3>Your screening history</h3><p>Every upload, grade and reviewing clinician.</p></div>
+    <div class="reveal table-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>Eye</th><th>Grade</th><th>Reviewed by</th><th>Status</th></tr></thead>
+        <tbody id="historyBody"><tr><td colspan="5">No screenings yet.</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PATIENT GUIDANCE -->
+<section>
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="card reveal"><div class="ico">🩸</div><h4>Keep sugar steady</h4><p>Maintain your diabetes care plan and follow your clinician's advice.</p></div>
+      <div class="card reveal"><div class="ico">📅</div><h4>Regular screening</h4><p>Follow the screening interval recommended by your eye-care team.</p></div>
+      <div class="card reveal"><div class="ico">⚠️</div><h4>Call us if…</h4><p>Sudden floaters, dark patches or blurred vision — seek clinical advice promptly.</p></div>
+    </div>
+    <div class="quote reveal mt"><p>“Your scan is not a verdict. It is a map of what we can still protect.”</p><small>RETINOVA Care Team</small></div>
+    <p class="note">RETINOVA is a research prototype. An AI result is not a diagnosis; a doctor reviews every referable case.</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}<script src="/static/js/patient.js"></script>{% endblock %}

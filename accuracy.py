@@ -58,6 +58,10 @@ accuracy = correct / len(y_true)
 print("Accuracy:", round(accuracy * 100, 2), "%")
 
 # Calculate precision, recall and F1 score
+precisions = []
+recalls = []
+f1_scores = []
+
 for i in range(5):
     tp = fp = fn = 0
 
@@ -80,3 +84,13 @@ for i in range(5):
     print("Precision:", round(precision, 2))
     print("Recall:", round(recall, 2))
     print("F1 Score:", round(f1, 2))
+
+    precisions.append(precision)
+    recalls.append(recall)
+    f1_scores.append(f1)
+
+# Average over the 5 grades (macro average)
+print("\nAverage")
+print("Precision:", round(sum(precisions) / 5, 2))
+print("Recall:", round(sum(recalls) / 5, 2))
+print("F1 Score:", round(sum(f1_scores) / 5, 2))

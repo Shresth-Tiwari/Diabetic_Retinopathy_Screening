@@ -52,11 +52,11 @@ Open **http://localhost:8000**, sign up, and you are taken to the portal for you
 The dataset lives in `DataBase/` (`train_1.csv`, `valid.csv`, `test.csv` and the matching `*_images` folders).
 
 ```bash
-python train.py                                       # train 15 epochs
-python train.py --evaluate models/retinova_resnet18.pth   # metrics for an existing model
+python train.py      # train 15 epochs, then evaluate on validation and test
+python accuracy.py   # accuracy, precision, recall and F1 of the deployed model
 ```
 
-Training writes `models/retinova_resnet18_new.pth` (best epoch by validation kappa) and never overwrites the deployed model. To deploy a new model, rename it to `retinova_resnet18.pth`, then run `--evaluate` on it so the admin portal shows its metrics. `notebooks/main.ipynb` contains the data audit and EDA.
+Training writes `models/retinova_resnet18_new.pth` (best epoch by validation kappa) and `results/retinova_resnet18_new_metrics.json`, and never overwrites the deployed model. To deploy a new model, rename both files, replacing `retinova_resnet18_new` with `retinova_resnet18`, so the admin portal shows its metrics. `notebooks/main.ipynb` contains the data audit and EDA.
 
 ## Project structure
 
